@@ -1,6 +1,3 @@
-<h3>Balance: ₹<span id="balance">0</span></h3>
-<p>Income: ₹<span id="income">0</span></p>
-<p>Expense: ₹<span id="expense">0</span></p>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,34 +10,49 @@
   <h1>Finance Tracker 💰</h1>
 
   <div class="container">
+
+    <!-- ✅ Balance section INSIDE body -->
+    <h3>Balance: ₹<span id="balance">0</span></h3>
+    <p>Income: ₹<span id="income">0</span></p>
+    <p>Expense: ₹<span id="expense">0</span></p>
+
+    <!-- ✅ FORM -->
     <form id="finance-form">
       
       <input type="text" id="desc" placeholder="Description" required />
 
       <input type="number" id="amount" placeholder="Amount" required />
+
+      <!-- ✅ CATEGORY -->
       <select id="category">
         <option value="food">Food</option>
         <option value="travel">Travel</option>
         <option value="shopping">Shopping</option>
         <option value="other">Other</option>
-    </select>
-        <select id="filter">
-        <option value="all">All</option>
-        <option value="expense">Expense</option>
-        <option value="income">Income</option>
-        </select>
+      </select>
+
+      <!-- ✅ TYPE -->
       <select id="type">
         <option value="income">Income</option>
         <option value="expense">Expense</option>
-  </select>
+      </select>
 
       <button type="submit">Add</button>
 
     </form>
 
+    <!-- ✅ FILTER OUTSIDE FORM -->
+    <select id="filter">
+      <option value="all">All</option>
+      <option value="income">Income</option>
+      <option value="expense">Expense</option>
+    </select>
+
+    <!-- ✅ LIST -->
     <ul id="list"></ul>
+
   </div>
 
   <script src="app.js"></script>
 </body>
-</html>
+</html>]
