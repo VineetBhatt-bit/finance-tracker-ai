@@ -5,9 +5,19 @@ const PORT = 5000;
 
 app.use(express.json());
 
-// Test route
-app.get("/", (req, res) => {
-  res.send("Server is running 🚀");
+// Temporary storage (we’ll replace with DB later)
+let transactions = [];
+
+// GET all transactions
+app.get("/transactions", (req, res) => {
+  res.json(transactions);
+});
+
+// POST new transaction
+app.post("/transactions", (req, res) => {
+  const newTransaction = req.body;
+  transactions.push(newTransaction);
+  res.json({ message: "Transaction added" });
 });
 
 app.listen(PORT, () => {
