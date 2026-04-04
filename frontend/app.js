@@ -1,18 +1,33 @@
+let transactions = JSON.parse(localStorage.getItem("data")) || [];
+
 const form = document.getElementById("finance-form");
 const list = document.getElementById("list");
 
-form.addEventListener("submit", function(e) {
+function render() {
+  list.innerHTML = "";
+
+  transactions.forEach((t) => {
+    const li = document.createElement("li");
+    li.textContent = `${t.type.toUpperCase()}: ${t.desc} - ₹${t.amount}`;
+    list.appendChild(li);
+  });
+}
+
+form.addEventListener("submit", function (e) {
   e.preventDefault();
 
   const desc = document.getElementById("desc").value;
   const amount = document.getElementById("amount").value;
   const type = document.getElementById("type").value;
 
-  const li = document.createElement("li");
+  const newTransaction = { desc, amount, type };
 
-  li.textContent = `${type.toUpperCase()}: ${desc} - ₹${amount}`;
+  transactions.push(newTransaction);
 
-  list.appendChild(li);
+  localStorage.setItem("data", JSON.stringify(transactions));
 
+  render();
   form.reset();
 });
+
+render();
