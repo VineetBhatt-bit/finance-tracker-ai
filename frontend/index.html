@@ -18,11 +18,21 @@
       <input type="text" id="desc" placeholder="Description" required />
 
       <input type="number" id="amount" placeholder="Amount" required />
-
+      <select id="category">
+        <option value="food">Food</option>
+        <option value="travel">Travel</option>
+        <option value="shopping">Shopping</option>
+        <option value="other">Other</option>
+    </select>
+        <select id="filter">
+        <option value="all">All</option>
+        <option value="expense">Expense</option>
+        <option value="income">Income</option>
+        </select>
       <select id="type">
         <option value="income">Income</option>
         <option value="expense">Expense</option>
-      </select>
+  </select>
 
       <button type="submit">Add</button>
 
