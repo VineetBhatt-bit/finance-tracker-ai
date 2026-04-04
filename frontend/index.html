@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Finance Tracker</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <h1>Finance Tracker 💰</h1>
+
+  <div class="container">
+    <form id="finance-form">
+      
+      <input type="text" id="desc" placeholder="Description" required />
+
+      <input type="number" id="amount" placeholder="Amount" required />
+
+      <select id="type">
+        <option value="income">Income</option>
+        <option value="expense">Expense</option>
+      </select>
+
+      <button type="submit">Add</button>
+
+    </form>
+
+    <ul id="list"></ul>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
