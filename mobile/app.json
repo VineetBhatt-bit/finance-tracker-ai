@@ -1,0 +1,23 @@
+{
+  "expo": {
+    "name": "Finance Tracker AI",
+    "slug": "finance-tracker-ai",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "dark",
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#07131f"
+      }
+    },
+    "web": {
+      "bundler": "metro"
+    }
+  }
+}

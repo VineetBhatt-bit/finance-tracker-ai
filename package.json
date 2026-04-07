@@ -2,8 +2,12 @@
   "name": "finance-tracker-ai",
   "version": "1.0.0",
   "description": "This project helps users: - Track income & expenses - Analyze spending habits - Get smart financial insights",
-  "main": "index.js",
+  "main": "backend/server.js",
   "scripts": {
+    "mobile": "npm --prefix mobile start",
+    "mobile:android": "npm --prefix mobile run android",
+    "mobile:ios": "npm --prefix mobile run ios",
+    "start": "npm --prefix backend start",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -18,7 +22,5 @@
     "url": "https://github.com/VineetBhatt-bit/finance-tracker-ai/issues"
   },
   "homepage": "https://github.com/VineetBhatt-bit/finance-tracker-ai#readme",
-  "dependencies": {
-    "express": "^5.2.1"
-  }
+  "dependencies": {}
 }

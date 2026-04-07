@@ -2,57 +2,370 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Finance Tracker</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <main class="shell">
+    <section class="hero">
+      <div>
+        <p class="eyebrow">Advanced money cockpit</p>
+        <h1>Finance Tracker</h1>
+        <p class="subtitle">Plan budgets, track recurring spending, search across transactions, and review monthly performance in one place.</p>
+      </div>
+      <label class="month-switcher">
+        <span>Analytics month</span>
+        <input type="month" id="month-picker">
+      </label>
+    </section>
 
-  <h1>Finance Tracker 💰</h1>
+    <p id="status" class="status" aria-live="polite"></p>
 
-  <div class="container">
+    <section class="summary-grid" id="summary-grid">
+      <article class="summary-card">
+        <span>Balance</span>
+        <strong id="balance">₹0</strong>
+        <small id="balance-trend">Monthly net result</small>
+      </article>
+      <article class="summary-card">
+        <span>Income</span>
+        <strong id="income">₹0</strong>
+        <small id="income-trend">Incoming cash this month</small>
+      </article>
+      <article class="summary-card">
+        <span>Expense</span>
+        <strong id="expense">₹0</strong>
+        <small id="expense-trend">Outgoing cash this month</small>
+      </article>
+      <article class="summary-card">
+        <span>Savings Rate</span>
+        <strong id="savings-rate">0%</strong>
+        <small id="savings-trend">Share of income retained</small>
+      </article>
+      <article class="summary-card">
+        <span>Pending Approvals</span>
+        <strong id="pending-approvals">0</strong>
+        <small>Transactions awaiting review</small>
+      </article>
+      <article class="summary-card">
+        <span>Flagged Items</span>
+        <strong id="flagged-count">0</strong>
+        <small>Records marked for finance review</small>
+      </article>
+    </section>
 
-    <!-- ✅ Balance section INSIDE body -->
-    <h3>Balance: ₹<span id="balance">0</span></h3>
-    <p>Income: ₹<span id="income">0</span></p>
-    <p>Expense: ₹<span id="expense">0</span></p>
+    <section class="workspace">
+      <section class="panel stack">
+        <div class="panel-heading">
+          <div>
+            <p class="section-kicker">Transaction studio</p>
+            <h2 id="form-title">Add transaction</h2>
+          </div>
+          <button id="cancel-edit" type="button" class="ghost-button hidden">Cancel edit</button>
+        </div>
 
-    <!-- ✅ FORM -->
-    <form id="finance-form">
-      
-      <input type="text" id="desc" placeholder="Description" required />
+        <form id="finance-form" class="tracker-form">
+          <input type="hidden" id="transaction-id">
 
-      <input type="number" id="amount" placeholder="Amount" required />
+          <div class="field-grid two-up">
+            <label>
+              <span>Description</span>
+              <input type="text" id="desc" placeholder="Salary, rent, dinner, freelance payment" required>
+            </label>
+            <label>
+              <span>Amount</span>
+              <input type="number" id="amount" placeholder="0.00" min="0" step="0.01" required>
+            </label>
+          </div>
 
-      <!-- ✅ CATEGORY -->
-      <select id="category">
-        <option value="food">Food</option>
-        <option value="travel">Travel</option>
-        <option value="shopping">Shopping</option>
-        <option value="other">Other</option>
-      </select>
+          <div class="field-grid four-up">
+            <label>
+              <span>Type</span>
+              <select id="type">
+                <option value="income">Income</option>
+                <option value="expense">Expense</option>
+              </select>
+            </label>
+            <label>
+              <span>Category</span>
+              <select id="category">
+                <option value="salary">Salary</option>
+                <option value="freelance">Freelance</option>
+                <option value="food">Food</option>
+                <option value="travel">Travel</option>
+                <option value="shopping">Shopping</option>
+                <option value="housing">Housing</option>
+                <option value="utilities">Utilities</option>
+                <option value="health">Health</option>
+                <option value="entertainment">Entertainment</option>
+                <option value="investment">Investment</option>
+                <option value="education">Education</option>
+                <option value="other">Other</option>
+              </select>
+            </label>
+            <label>
+              <span>Payment method</span>
+              <select id="payment-method">
+                <option value="bank">Bank</option>
+                <option value="credit-card">Credit card</option>
+                <option value="debit-card">Debit card</option>
+                <option value="cash">Cash</option>
+                <option value="upi">UPI</option>
+                <option value="wallet">Wallet</option>
+              </select>
+            </label>
+            <label>
+              <span>Date</span>
+              <input type="date" id="transaction-date" required>
+            </label>
+          </div>
 
-      <!-- ✅ TYPE -->
-      <select id="type">
-        <option value="income">Income</option>
-        <option value="expense">Expense</option>
-      </select>
+          <div class="field-grid four-up">
+            <label>
+              <span>Account</span>
+              <input type="text" id="account-name" placeholder="Corporate account, payroll, ops wallet">
+            </label>
+            <label>
+              <span>Counterparty</span>
+              <input type="text" id="counterparty" placeholder="Vendor, client, employee, bank">
+            </label>
+            <label>
+              <span>Approval status</span>
+              <select id="approval-status">
+                <option value="pending">Pending</option>
+                <option value="approved">Approved</option>
+                <option value="rejected">Rejected</option>
+              </select>
+            </label>
+            <label>
+              <span>Tax category</span>
+              <select id="tax-category">
+                <option value="standard">Standard</option>
+                <option value="tax-deductible">Tax deductible</option>
+                <option value="gst-input">GST input</option>
+                <option value="zero-rated">Zero rated</option>
+                <option value="non-taxable">Non taxable</option>
+              </select>
+            </label>
+          </div>
 
-      <button type="submit">Add</button>
+          <div class="field-grid two-up">
+            <label>
+              <span>Tags</span>
+              <input type="text" id="tags" placeholder="team lunch, reimburse, travel">
+            </label>
+            <label class="checkbox-field">
+              <span>Recurring transaction</span>
+              <input type="checkbox" id="is-recurring">
+            </label>
+          </div>
 
-    </form>
+          <div class="field-grid two-up">
+            <label>
+              <span>Receipt URL</span>
+              <input type="url" id="receipt-url" placeholder="https://example.com/receipt.pdf">
+            </label>
+            <label>
+              <span>Source system</span>
+              <select id="source-system">
+                <option value="manual">Manual</option>
+                <option value="bank-feed">Bank feed</option>
+                <option value="erp-import">ERP import</option>
+                <option value="card-sync">Card sync</option>
+                <option value="api">API</option>
+              </select>
+            </label>
+          </div>
 
-    <!-- ✅ FILTER OUTSIDE FORM -->
-    <select id="filter">
-      <option value="all">All</option>
-      <option value="income">Income</option>
-      <option value="expense">Expense</option>
-    </select>
+          <label class="checkbox-field">
+            <span>Flag for finance review</span>
+            <input type="checkbox" id="flagged-for-review">
+          </label>
 
-    <!-- ✅ LIST -->
-    <ul id="list"></ul>
+          <label>
+            <span>Notes</span>
+            <textarea id="notes" rows="3" placeholder="Add context, reminders, or important details"></textarea>
+          </label>
 
-  </div>
+          <button id="submit-button" type="submit">Save transaction</button>
+        </form>
+
+        <div class="panel-heading">
+          <div>
+            <p class="section-kicker">Budget control</p>
+            <h2>Category budgets</h2>
+          </div>
+        </div>
+
+        <form id="budget-form" class="budget-form">
+          <div class="field-grid two-up">
+            <label>
+              <span>Category</span>
+              <select id="budget-category">
+                <option value="food">Food</option>
+                <option value="travel">Travel</option>
+                <option value="shopping">Shopping</option>
+                <option value="housing">Housing</option>
+                <option value="utilities">Utilities</option>
+                <option value="health">Health</option>
+                <option value="entertainment">Entertainment</option>
+                <option value="education">Education</option>
+                <option value="other">Other</option>
+              </select>
+            </label>
+            <label>
+              <span>Budget limit</span>
+              <input type="number" id="budget-limit" min="0" step="0.01" placeholder="0.00" required>
+            </label>
+          </div>
+          <button type="submit">Save budget</button>
+        </form>
+
+        <div id="budget-list" class="budget-list"></div>
+      </section>
+
+      <section class="panel analytics-panel">
+        <div class="panel-heading">
+          <div>
+            <p class="section-kicker">Analytics hub</p>
+            <h2>Insights and trends</h2>
+          </div>
+        </div>
+
+        <div class="mini-metrics">
+          <article class="mini-card">
+            <span>Transactions</span>
+            <strong id="transaction-count">0</strong>
+          </article>
+          <article class="mini-card">
+            <span>Recurring</span>
+            <strong id="recurring-count">0</strong>
+          </article>
+          <article class="mini-card">
+            <span>Avg expense</span>
+            <strong id="avg-expense">₹0</strong>
+          </article>
+          <article class="mini-card">
+            <span>Top category</span>
+            <strong id="top-category">-</strong>
+          </article>
+          <article class="mini-card">
+            <span>Approved spend</span>
+            <strong id="approved-expense">₹0</strong>
+          </article>
+          <article class="mini-card">
+            <span>Finance review</span>
+            <strong id="review-count">0</strong>
+          </article>
+        </div>
+
+        <section class="analytics-block">
+          <div class="block-header">
+            <h3>Category breakdown</h3>
+            <span class="chip">Expense distribution</span>
+          </div>
+          <div id="category-breakdown" class="breakdown-list"></div>
+        </section>
+
+        <section class="analytics-block">
+          <div class="block-header">
+            <h3>Monthly trend</h3>
+            <span class="chip">Last 6 months</span>
+          </div>
+          <div id="trend-list" class="trend-list"></div>
+        </section>
+
+        <section class="analytics-block">
+          <div class="block-header">
+            <h3>Actionable insights</h3>
+            <span class="chip">Auto-generated</span>
+          </div>
+          <div id="insight-list" class="insight-list"></div>
+        </section>
+      </section>
+    </section>
+
+    <section class="panel explorer-panel">
+      <div class="panel-heading">
+        <div>
+          <p class="section-kicker">Transaction explorer</p>
+          <h2>Search, filter, and sort history</h2>
+        </div>
+      </div>
+
+      <div class="field-grid explorer-filters">
+        <label>
+          <span>Search</span>
+          <input type="text" id="search" placeholder="Search description, notes, tags, category">
+        </label>
+        <label>
+          <span>Type</span>
+          <select id="filter">
+            <option value="all">All</option>
+            <option value="income">Income</option>
+            <option value="expense">Expense</option>
+          </select>
+        </label>
+        <label>
+          <span>Category</span>
+          <select id="category-filter">
+            <option value="all">All categories</option>
+            <option value="salary">Salary</option>
+            <option value="freelance">Freelance</option>
+            <option value="food">Food</option>
+            <option value="travel">Travel</option>
+            <option value="shopping">Shopping</option>
+            <option value="housing">Housing</option>
+            <option value="utilities">Utilities</option>
+            <option value="health">Health</option>
+            <option value="entertainment">Entertainment</option>
+            <option value="investment">Investment</option>
+            <option value="education">Education</option>
+            <option value="other">Other</option>
+          </select>
+        </label>
+        <label>
+          <span>Approval</span>
+          <select id="approval-filter">
+            <option value="all">All approvals</option>
+            <option value="pending">Pending</option>
+            <option value="approved">Approved</option>
+            <option value="rejected">Rejected</option>
+          </select>
+        </label>
+        <label>
+          <span>Sort by</span>
+          <select id="sort-by">
+            <option value="transactionDate">Date</option>
+            <option value="amount">Amount</option>
+            <option value="category">Category</option>
+            <option value="createdAt">Created</option>
+            <option value="approvalStatus">Approval status</option>
+          </select>
+        </label>
+        <label>
+          <span>Direction</span>
+          <select id="sort-dir">
+            <option value="desc">Newest first</option>
+            <option value="asc">Oldest first</option>
+          </select>
+        </label>
+        <label>
+          <span>From</span>
+          <input type="date" id="start-date">
+        </label>
+        <label>
+          <span>To</span>
+          <input type="date" id="end-date">
+        </label>
+        <button id="clear-filters" type="button" class="ghost-button filter-reset">Clear filters</button>
+      </div>
+
+      <div id="transaction-list" class="transaction-list"></div>
+    </section>
+  </main>
 
   <script src="app.js"></script>
 </body>
-</html>]
+</html>
